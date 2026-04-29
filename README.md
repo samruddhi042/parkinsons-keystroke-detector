@@ -1,6 +1,6 @@
 ﻿# Parkinson's Keystroke Detector
 
-A machine learning web application that detects early signs of Parkinson's disease using keystroke dynamics analysis.
+A machine learning based web application that detects early signs of Parkinson's disease using keystroke dynamics analysis.
 
 ## Features
 - Keystroke feature extraction (hold time, flight time, ratios)
