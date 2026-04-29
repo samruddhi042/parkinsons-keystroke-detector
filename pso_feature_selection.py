@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 import pyswarms as ps
-
+import json
 # Load your dataset
 df = pd.read_csv("processed_data.csv")
 
@@ -56,3 +56,7 @@ print("Best Features Mask:", best_pos)
 # Train final model with best features
 selected_features = X.columns[best_pos > 0.5]
 print("Selected Features:", list(selected_features))
+with open('model/selected_features.json', 'w') as f:
+    json.dump({'selected_features': selected_features}, f, indent=2)
+
+print("Selected features saved to model/selected_features.json")
