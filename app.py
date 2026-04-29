@@ -21,27 +21,38 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        features = [
-            float(request.form['mean_hold_time']),
-            float(request.form['std_hold_time']),
-            float(request.form['std_flight_time']),
-        ]
-        input_array = np.array([features])
+        mean_hold = float(request.form['mean_hold_time'])
+        std_hold = float(request.form['std_hold_time'])
+        std_flight = float(request.form['std_flight_time'])
+
+        # Validation
+        if mean_hold <= 0 or std_hold < 0 or std_flight < 0:
+            return render_template('index.html', prediction="Error: Values must be positive.",
+                confidence=0, accuracy=model_accuracy, precision=model_precision,
+                mean_hold=mean_hold, std_hold=std_hold, std_flight=std_flight)
+
+        input_array = np.array([[mean_hold, std_hold, std_flight]])
         scaled_input = scaler.transform(input_array)
 
-        # Make prediction and get probability
         prediction = model.predict(scaled_input)[0]
-        probability = model.predict_proba(scaled_input)[0][1]  # probability of class 1 (Parkinson's)
-        confidence = round(probability * 100, 2)
+        probability = model.predict_proba(scaled_input)[0]
+        confidence = round(float(max(probability)) * 100, 2)
 
-        if prediction == 1:
-            result = f"Prediction: Likely Parkinson’s ({confidence}%)"
-        else:
-            result = f"Prediction: Unlikely Parkinson’s ({100 - confidence}%)"
- 
+        result = "Likely Parkinson's" if prediction == 1 else "Unlikely Parkinson's"
+
+        return render_template('index.html',
+            prediction=result,
+            confidence=confidence,
+            accuracy=model_accuracy,
+            precision=model_precision,
+            mean_hold=mean_hold,
+            std_hold=std_hold,
+            std_flight=std_flight
+        )
     except Exception as e:
-        result = f"Error: {str(e)}"
-    return render_template('index.html', prediction=result, accuracy=model_accuracy, precision=model_precision)
+        return render_template('index.html', prediction=f"Error: {str(e)}",
+            confidence=0, accuracy=model_accuracy, precision=model_precision,
+            mean_hold=0, std_hold=0, std_flight=0)
 
 if __name__ == '__main__':
     app.run(debug=True)
