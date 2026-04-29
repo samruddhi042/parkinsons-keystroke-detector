@@ -38,6 +38,16 @@ def predict():
             result = f"Prediction: Likely Parkinson’s ({confidence}%)"
         else:
             result = f"Prediction: Unlikely Parkinson’s ({100 - confidence}%)"
+ 
+            return render_template('index.html',
+            prediction=result,
+            confidence=confidence,
+            accuracy=model_accuracy,
+            precision=model_precision,
+            mean_hold=mean_hold,
+            std_hold=std_hold,
+            std_flight=std_flight
+        )
     except Exception as e:
         result = f"Error: {str(e)}"
     return render_template('index.html', prediction=result, accuracy=model_accuracy, precision=model_precision)
