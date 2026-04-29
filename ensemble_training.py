@@ -72,3 +72,12 @@ with open('model/best_model.pkl', 'wb') as f:
 with open('model/scaler.pkl', 'wb') as f:
     pickle.dump(scaler, f)
 
+#save metrics.pkl in ensemble_training.py to prevent app crash on startup
+from sklearn.metrics import accuracy_score, precision_score
+stacking_accuracy = accuracy_score(y_test, stacking_preds)
+stacking_precision = precision_score(y_test, stacking_preds)
+
+with open('model/metrics.pkl', 'wb') as f:
+    pickle.dump({'accuracy': stacking_accuracy, 'precision': stacking_precision}, f)
+
+print(f"Metrics saved — Accuracy: {stacking_accuracy:.3f}, Precision: {stacking_precision:.3f}")
