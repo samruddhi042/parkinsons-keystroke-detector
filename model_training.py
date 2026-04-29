@@ -3,7 +3,7 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, VotingClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, accuracy_score, precision_score
-
+from sklearn.model_selection import cross_val_score
 # Load data
 df = pd.read_csv("processed_data.csv")
 X = df[['mean_hold_time', 'std_hold_time', 'std_flight_time']]  # PSO selected features
@@ -30,8 +30,11 @@ y_pred = model.predict(X_test_scaled)
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 
+# 5-Fold Cross Validation
+cv_scores = cross_val_score(model, X_train_scaled, y_train, cv=5, scoring='accuracy')
 print(f"Voting Classifier Accuracy: {accuracy:.3f}")
 print(f"Voting Classifier Precision: {precision:.3f}")
+print(f"Cross-Val Accuracy (5-fold): {cv_scores.mean():.3f} ± {cv_scores.std():.3f}")
 print(classification_report(y_test, y_pred))
 
 # Save model & scaler
