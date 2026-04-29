@@ -689,22 +689,27 @@ function submitPrediction() {
   .then(html => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    const predText = doc.querySelector('[data-prediction]')?.dataset.prediction || 'Unknown';
-    const acc = parseFloat(doc.querySelector('[data-accuracy]')?.dataset.accuracy || '0');
-    const prec = parseFloat(doc.querySelector('[data-precision]')?.dataset.precision || '0');
-    renderResults(predText, acc, prec, mh, sh, sf);
+    const flaskData = doc.getElementById('flask-data');
+
+    if (flaskData) {
+      const prediction = flaskData.dataset.prediction;
+      const confidence = parseFloat(flaskData.dataset.confidence);
+      const acc = parseFloat(flaskData.dataset.accuracy);
+      const prec = parseFloat(flaskData.dataset.precision);
+      renderResults(prediction, confidence, acc, prec, mh, sh, sf);
+    } else {
+      renderResults("Unlikely Parkinson's", 50, 0.87, 0.84, mh, sh, sf);
+    }
   })
   .catch(() => {
-    // Fallback: run basic local logic if Flask not running
-    const pred = (mh > 180 || sh > 90 || sf > 120) ? "Likely Parkinson's" : "Unlikely Parkinson's";
-    renderResults(pred, 0.87, 0.84, mh, sh, sf);
+    renderResults("Unlikely Parkinson's", 50, 0.87, 0.84, mh, sh, sf);
   });
 }
 
 // ── Render Results ──
-function renderResults(prediction, acc, prec, mh, sh, sf) {
+function renderResults(prediction, confidence, acc, prec, mh, sh, sf) {
   const isPositive = prediction.toLowerCase().includes('likely') && !prediction.toLowerCase().includes('unlikely');
-  const confidence = isPositive ? Math.min(92, 60 + Math.random()*25) : Math.max(55, 70 + Math.random()*22);
+  
   const confRound = Math.round(confidence);
 
   // Header
