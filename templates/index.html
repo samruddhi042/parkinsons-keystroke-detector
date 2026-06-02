@@ -248,7 +248,19 @@ footer strong { color: rgba(255,255,255,0.9); }
   .page { display: block !important; }
   body { background: white; }
 }
+/* Add inside your existing <style> tag */
+.result-card,
+.keystroke-data-card,
+.recommendations-card,
+.result-header-card {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
 
+.results-grid {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
 .disclaimer-banner { background: var(--amber-50); border: 1px solid #FAC775; border-radius: var(--radius-md); padding: 0.9rem 1.25rem; font-size: 0.83rem; color: var(--amber-600); display: flex; gap: 8px; align-items: flex-start; margin-top: 1.5rem; }
 </style>
 </head>
@@ -821,9 +833,9 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
   return Math.min(98, Math.round((val / dynamicMax) * 100));
 };
   setTimeout(() => {
-    document.getElementById('bar_mh').style.width = normalize(mh, 300) + '%';
-    document.getElementById('bar_sh').style.width = normalize(sh, 150) + '%';
-    document.getElementById('bar_sf').style.width = normalize(sf, 200) + '%';
+    document.getElementById('bar_mh').style.width = normalize(mh, 160) + '%';
+    document.getElementById('bar_sh').style.width = normalize(sh, 80) + '%';
+    document.getElementById('bar_sf').style.width = normalize(sf, 100) + '%';
   }, 200);
   document.getElementById('bv_mh').textContent = Math.round(mh)+'ms';
   document.getElementById('bv_sh').textContent = Math.round(sh)+'ms';
