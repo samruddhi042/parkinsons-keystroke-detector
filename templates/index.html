@@ -884,22 +884,32 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
 
 // ── Download PDF ──
 function downloadPDF() {
+  // Hide action buttons before capture
+  const actions = document.querySelector('.report-actions');
+  actions.style.display = 'none';
+
   const el = document.getElementById('reportContent');
   const name = patientData.name ? patientData.name.replace(/ /g,'_') : 'Patient';
+  
   const opt = {
-    margin: [12, 12, 12, 12],
+    margin: [8, 8, 8, 8],
     filename: `NeuroKey_Report_${name}_${new Date().toISOString().slice(0,10)}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
       scale: 2,
       useCORS: true,
-      scrollY: 0,
-      windowWidth: 900
+      scrollX: 0,
+      scrollY: -window.scrollY,
+      windowWidth: 1200
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: 'css', before: '.page-break' }
+    pagebreak: { mode: ['avoid-all'] }
   };
-  html2pdf().set(opt).from(el).save();
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    // Restore buttons after PDF is saved
+    actions.style.display = 'flex';
+  });
 }
 
 // ── Reset test ──
