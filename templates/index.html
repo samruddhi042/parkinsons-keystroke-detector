@@ -816,7 +816,10 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
   document.getElementById('modelPrec').textContent = prec ? (prec*100).toFixed(1)+'%' : '—';
 
   // Comparison bars
-  const normalize = (val, max) => Math.min(98, Math.round((val/max)*100));
+  const normalize = (val, normalMax) => {
+  const dynamicMax = Math.max(val, normalMax) * 1.1; // always fits both bars
+  return Math.min(98, Math.round((val / dynamicMax) * 100));
+};
   setTimeout(() => {
     document.getElementById('bar_mh').style.width = normalize(mh, 300) + '%';
     document.getElementById('bar_sh').style.width = normalize(sh, 150) + '%';
