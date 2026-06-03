@@ -248,7 +248,7 @@ footer strong { color: rgba(255,255,255,0.9); }
   .page { display: block !important; }
   body { background: white; }
 }
-/* Add inside your existing <style> tag */
+/* Add inside your existing <style> tag */                          /* css changes are here but its not affecting the formating */  
 .result-card,
 .keystroke-data-card,
 .recommendations-card,
@@ -261,6 +261,16 @@ footer strong { color: rgba(255,255,255,0.9); }
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
+.result-card,
+.keystroke-data-card,
+.recommendations-card,
+.result-header-card,
+.results-grid {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
 .disclaimer-banner { background: var(--amber-50); border: 1px solid #FAC775; border-radius: var(--radius-md); padding: 0.9rem 1.25rem; font-size: 0.83rem; color: var(--amber-600); display: flex; gap: 8px; align-items: flex-start; margin-top: 1.5rem; }
 </style>
 </head>
