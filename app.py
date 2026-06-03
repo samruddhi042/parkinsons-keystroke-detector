@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 import numpy as np
 import pickle
+import uuid
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -118,6 +120,28 @@ def predict():
             target_sentence=TARGET_SENTENCE,
             mean_hold=0, std_hold=0, std_flight=0,
             typing_accuracy=0, key_count=0)
+    
+@app.route('/report')
+def report():
+    # Read all values from query params (passed from frontend)
+    return render_template('report.html',
+        patient_name=request.args.get('name', 'Patient'),
+        patient_age=request.args.get('age', '—'),
+        patient_gender=request.args.get('gender', '—'),
+        patient_mobile=request.args.get('mobile', '—'),
+        report_date=datetime.now().strftime('%d %B %Y'),
+        report_id=str(uuid.uuid4())[:8].upper(),
+        prediction=request.args.get('prediction', '—'),
+        is_positive=request.args.get('prediction', '').lower().startswith('likely'),
+        confidence=float(request.args.get('confidence', 0)),
+        model_accuracy=float(request.args.get('accuracy', 0)),
+        model_precision=float(request.args.get('precision', 0)),
+        mean_hold=float(request.args.get('mean_hold', 0)),
+        std_hold=float(request.args.get('std_hold', 0)),
+        std_flight=float(request.args.get('std_flight', 0)),
+        key_count=int(request.args.get('key_count', 0)),
+        typing_accuracy=float(request.args.get('typing_accuracy', 0))
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

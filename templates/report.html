@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NeuroKey Report — {{ patient_name }}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 13px; color: #1a1a2e; background: white; padding: 30px; }
+
+  /* HEADER */
+  .report-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #0C447C; padding-bottom: 16px; margin-bottom: 24px; }
+  .logo-block h1 { font-size: 22px; color: #0C447C; letter-spacing: 1px; }
+  .logo-block p { font-size: 11px; color: #666; margin-top: 2px; }
+  .report-meta { text-align: right; font-size: 11px; color: #555; }
+  .report-meta strong { font-size: 13px; color: #0C447C; display: block; margin-bottom: 2px; }
+
+  /* PATIENT BANNER */
+  .patient-banner { background: #0C447C; color: white; border-radius: 8px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .patient-name { font-size: 18px; font-weight: bold; }
+  .patient-meta { font-size: 11px; opacity: 0.8; margin-top: 3px; }
+  .verdict-box { text-align: right; }
+  .verdict-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+  .verdict-positive { background: #f8d7da; color: #842029; }
+  .verdict-negative { background: #d1e7dd; color: #0f5132; }
+  .verdict-desc { font-size: 10px; opacity: 0.75; margin-top: 4px; max-width: 260px; }
+
+  /* SECTION TITLE */
+  .section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+
+  /* TWO COLUMN */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+  /* CARD */
+  .card { border: 1px solid #dce4ef; border-radius: 8px; padding: 14px 16px; }
+
+  /* CONFIDENCE */
+  .conf-number { font-size: 36px; font-weight: bold; color: #0C447C; line-height: 1; }
+  .conf-label { font-size: 11px; color: #666; margin: 4px 0 8px; }
+  .conf-bar-track { background: #eef2f8; border-radius: 4px; height: 10px; margin-bottom: 12px; }
+  .conf-bar-fill { height: 100%; border-radius: 4px; }
+  .conf-fill-positive { background: #E24B4A; }
+  .conf-fill-negative { background: #1D9E75; }
+  .metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .metric-box { background: #f0f5fb; border-radius: 6px; padding: 8px; text-align: center; }
+  .metric-box-val { font-size: 16px; font-weight: bold; color: #0C447C; }
+  .metric-box-label { font-size: 10px; color: #666; }
+
+  /* COMPARISON BARS */
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 11px; }
+  .bar-row-label { width: 110px; flex-shrink: 0; color: #444; }
+  .bar-track { flex: 1; background: #eef2f8; border-radius: 3px; height: 8px; }
+  .bar-fill-patient { background: #378ADD; height: 100%; border-radius: 3px; }
+  .bar-fill-normal { background: #1D9E75; height: 100%; border-radius: 3px; }
+  .bar-row-val { width: 50px; text-align: right; color: #555; flex-shrink: 0; }
+  .legend { display: flex; gap: 12px; margin-bottom: 10px; font-size: 10px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 6px 10px; background: #f0f5fb; color: #555; font-weight: 600; font-size: 11px; }
+  td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .badge-high { background: #f8d7da; color: #842029; }
+  .badge-normal { background: #d1e7dd; color: #0f5132; }
+  .badge-borderline { background: #fff3cd; color: #664d03; }
+  .badge-recorded { background: #cfe2ff; color: #084298; }
+
+  /* RECOMMENDATIONS */
+  .rec-item { display: flex; gap: 10px; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; align-items: flex-start; }
+  .rec-urgent { background: #fff0f0; border-left: 3px solid #E24B4A; }
+  .rec-moderate { background: #fffbf0; border-left: 3px solid #BA7517; }
+  .rec-normal { background: #f0fff8; border-left: 3px solid #1D9E75; }
+  .rec-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .rec-title { font-weight: 600; font-size: 12px; color: #1a1a2e; margin-bottom: 2px; }
+  .rec-desc { font-size: 11px; color: #555; line-height: 1.5; }
+
+  /* DISCLAIMER */
+  .disclaimer { background: #fffbf0; border: 1px solid #ffc; border-radius: 6px; padding: 10px 14px; font-size: 10px; color: #7a6000; margin-top: 16px; line-height: 1.5; }
+
+  /* FOOTER */
+  .report-footer { margin-top: 24px; border-top: 1px solid #dce4ef; padding-top: 12px; display: flex; justify-content: space-between; font-size: 10px; color: #999; }
+
+  /* PRINT */
+  @media print {
+    body { padding: 20px; }
+    .no-print { display: none !important; }
+    .card, .rec-item { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PRINT BUTTON — hidden in PDF -->
+<div class="no-print" style="text-align:right;margin-bottom:16px;">
+  <button onclick="window.print()" style="background:#0C447C;color:white;border:none;padding:10px 22px;border-radius:6px;font-size:14px;cursor:pointer;font-family:Arial;">
+    ⬇ Save as PDF (Ctrl+P → Save as PDF)
+  </button>
+</div>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="logo-block">
+    <h1>NeuroKey</h1>
+    <p>AI-Powered Parkinson's Keystroke Detection</p>
+    <p style="margin-top:4px;color:#999;">VIT Pune — Research Project</p>
+  </div>
+  <div class="report-meta">
+    <strong>MEDICAL SCREENING REPORT</strong>
+    Report ID: NK-{{ report_id }}<br>
+    Date: {{ report_date }}<br>
+    Generated by: NeuroKey v1.0
+  </div>
+</div>
+
+<!-- PATIENT BANNER -->
+<div class="patient-banner">
+  <div>
+    <div class="patient-name">{{ patient_name }}</div>
+    <div class="patient-meta">Age {{ patient_age }} · {{ patient_gender }} · {{ patient_mobile }}</div>
+  </div>
+  <div class="verdict-box">
+    <span class="verdict-badge {{ 'verdict-positive' if is_positive else 'verdict-negative' }}">
+      {{ 'Signs Detected' if is_positive else 'Low Risk' }}
+    </span>
+    <div class="verdict-desc">
+      {{ "Keystroke patterns indicate potential motor irregularities. Neurologist consultation recommended." if is_positive else "Keystroke patterns are within normal range. No immediate concern detected." }}
+    </div>
+  </div>
+</div>
+
+<!-- CONFIDENCE + COMPARISON -->
+<div class="two-col">
+  <!-- Confidence Card -->
+  <div class="card">
+    <div class="section-title">Confidence Score</div>
+    <div class="conf-number">{{ confidence }}%</div>
+    <div class="conf-label">{{ 'Model confidence in positive detection' if is_positive else 'Model confidence in low-risk classification' }}</div>
+    <div class="conf-bar-track">
+      <div class="conf-bar-fill {{ 'conf-fill-positive' if is_positive else 'conf-fill-negative' }}" style="width:{{ confidence }}%"></div>
+    </div>
+    <div class="metrics-row">
+      <div class="metric-box">
+        <div class="metric-box-val">{{ "%.1f"|format(model_accuracy * 100) }}%</div>
+        <div class="metric-box-label">Model Accuracy</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-box-val">{{ "%.1f"|format(model_precision * 100) }}%</div>
+        <div class="metric-box-label">Precision</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Bars Card -->
+  <div class="card">
+    <div class="section-title">Keystroke vs Normal Range</div>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#378ADD"></span>Patient</span>
+      <span><span class="legend-dot" style="background:#1D9E75"></span>Normal Range</span>
+    </div>
+
+    <div class="bar-row">
+      <span class="bar-row-label">Mean Hold</span>
+      <div class="bar-track"><div class="bar-fill-patient" style="width:{{ [[(mean_hold / ([mean_hold, 160] | max * 1.1)) * 100, 98] | min, 0] | max }}%"></div></div>
+      <span class="bar-row-val">{{ mean_hold }}ms</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-row-label" style="color:#1D9E75">Normal Hold</span>
+      <div class="bar-track"><div class="bar-fill-normal" style="width:{{ [(120 / ([mean_hold, 160] | max * 1.1)) * 100, 98] | min }}%"></div></div>
+      <span class="bar-row-val" style="color:#1D9E75">~120ms</span>
+    </div>
+
+    <div class="bar-row">
+      <span class="bar-row-label">Std Hold</span>
+      <div class="bar-track"><div class="bar-fill-patient" style="width:{{ [[(std_hold / ([std_hold, 80] | max * 1.1)) * 100, 98] | min, 0] | max }}%"></div></div>
+      <span class="bar-row-val">{{ std_hold }}ms</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-row-label" style="color:#1D9E75">Normal Std Hold</span>
+      <div class="bar-track"><div class="bar-fill-normal" style="width:{{ [(50 / ([std_hold, 80] | max * 1.1)) * 100, 98] | min }}%"></div></div>
+      <span class="bar-row-val" style="color:#1D9E75">~50ms</span>
+    </div>
+
+    <div class="bar-row">
+      <span class="bar-row-label">Std Flight</span>
+      <div class="bar-track"><div class="bar-fill-patient" style="width:{{ [[(std_flight / ([std_flight, 100] | max * 1.1)) * 100, 98] | min, 0] | max }}%"></div></div>
+      <span class="bar-row-val">{{ std_flight }}ms</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-row-label" style="color:#1D9E75">Normal Std Flight</span>
+      <div class="bar-track"><div class="bar-fill-normal" style="width:{{ [(70 / ([std_flight, 100] | max * 1.1)) * 100, 98] | min }}%"></div></div>
+      <span class="bar-row-val" style="color:#1D9E75">~70ms</span>
+    </div>
+  </div>
+</div>
+
+<!-- KEYSTROKE DATA TABLE -->
+<div class="card" style="margin-bottom:16px;">
+  <div class="section-title">Measured Keystroke Metrics</div>
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>Patient Value</th><th>Normal Range</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Mean Hold Time</td>
+        <td><strong>{{ mean_hold }} ms</strong></td>
+        <td>80 – 160 ms</td>
+        <td><span class="badge {{ 'badge-high' if mean_hold > 160 else ('badge-borderline' if mean_hold < 80 else 'badge-normal') }}">{{ 'Elevated' if mean_hold > 160 else ('Low' if mean_hold < 80 else 'Normal') }}</span></td>
+      </tr>
+      <tr>
+        <td>Std Hold Time</td>
+        <td><strong>{{ std_hold }} ms</strong></td>
+        <td>20 – 80 ms</td>
+        <td><span class="badge {{ 'badge-high' if std_hold > 80 else ('badge-borderline' if std_hold < 20 else 'badge-normal') }}">{{ 'Elevated' if std_hold > 80 else ('Low' if std_hold < 20 else 'Normal') }}</span></td>
+      </tr>
+      <tr>
+        <td>Std Flight Time</td>
+        <td><strong>{{ std_flight }} ms</strong></td>
+        <td>40 – 100 ms</td>
+        <td><span class="badge {{ 'badge-high' if std_flight > 100 else ('badge-borderline' if std_flight < 40 else 'badge-normal') }}">{{ 'Elevated' if std_flight > 100 else ('Low' if std_flight < 40 else 'Normal') }}</span></td>
+      </tr>
+      <tr>
+        <td>Keystrokes Recorded</td>
+        <td><strong>{{ key_count }} keys</strong></td>
+        <td>—</td>
+        <td><span class="badge badge-recorded">Recorded</span></td>
+      </tr>
+      <tr>
+        <td>Typing Accuracy</td>
+        <td><strong>{{ typing_accuracy }}%</strong></td>
+        <td>—</td>
+        <td><span class="badge {{ 'badge-normal' if typing_accuracy >= 70 else 'badge-borderline' }}">{{ 'Good' if typing_accuracy >= 70 else 'Low' }}</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="card" style="margin-bottom:16px;">
+  <div class="section-title">Clinical Recommendations</div>
+  {% if is_positive %}
+  <div class="rec-item rec-urgent">
+    <div class="rec-icon">🔴</div>
+    <div><div class="rec-title">Consult a Neurologist Immediately</div><div class="rec-desc">Schedule an appointment with a certified neurologist for a full motor function evaluation and dopamine imaging (DaTscan).</div></div>
+  </div>
+  <div class="rec-item rec-urgent">
+    <div class="rec-icon">🔴</div>
+    <div><div class="rec-title">Clinical Keystroke Assessment</div><div class="rec-desc">Request a formal Digital Motor Control assessment at a movement disorder clinic using validated instruments.</div></div>
+  </div>
+  <div class="rec-item rec-moderate">
+    <div class="rec-icon">🟡</div>
+    <div><div class="rec-title">Begin Motor Exercise Program</div><div class="rec-desc">Regular aerobic exercise has been shown to slow progression in early-stage Parkinson's. Consult a physiotherapist for a supervised program.</div></div>
+  </div>
+  <div class="rec-item rec-normal">
+    <div class="rec-icon">🟢</div>
+    <div><div class="rec-title">Share This Report With Your Doctor</div><div class="rec-desc">Bring this report to your next appointment. The comparison data assists clinical decision-making.</div></div>
+  </div>
+  {% else %}
+  <div class="rec-item rec-normal">
+    <div class="rec-icon">🟢</div>
+    <div><div class="rec-title">Results Look Normal</div><div class="rec-desc">Your keystroke patterns fall within expected ranges for your age group. No immediate clinical concern detected.</div></div>
+  </div>
+  <div class="rec-item rec-moderate">
+    <div class="rec-icon">🟡</div>
+    <div><div class="rec-title">Schedule Regular Screenings</div><div class="rec-desc">If you are over 55 or have a family history of Parkinson's, repeat this test every 6 months for trend monitoring.</div></div>
+  </div>
+  <div class="rec-item rec-normal">
+    <div class="rec-icon">🟢</div>
+    <div><div class="rec-title">Maintain Motor Health</div><div class="rec-desc">Regular physical activity, adequate sleep, and stress management are protective factors for long-term neurological health.</div></div>
+  </div>
+  {% endif %}
+
+  <div class="disclaimer">
+    ⚠️ This report is generated by an AI screening tool for informational purposes only. It is <strong>not a medical diagnosis</strong>. Please consult a licensed neurologist for professional evaluation. NeuroKey is a research prototype developed at VIT Pune.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <span>NeuroKey — Parkinson's Keystroke Detector | VIT Pune Research Project</span>
+  <span>Report ID: NK-{{ report_id }} | {{ report_date }}</span>
+</div>
+
+</body>
+</html>
