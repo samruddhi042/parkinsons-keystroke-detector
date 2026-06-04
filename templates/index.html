@@ -895,7 +895,7 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
 
 //function that formars the report data
 // ── Download PDF ──
-function downloadPDF() {
+function downloadPDF(){
   // Build URL with all report data as query params
   const params = new URLSearchParams({
     name: patientData.name || 'Patient',
@@ -912,13 +912,13 @@ function downloadPDF() {
     key_count: document.getElementById('td_keys').textContent.replace(' keys',''),
     typing_accuracy: 0
   });
-  // Open report in new tab — user does Ctrl+P → Save as PDF
+  //open report in new tab-user does Ctrl+P→save as PDF
   window.open('/report?' + params.toString(), '_blank');
 }
 
 
 // ── Reset test ──
-function resetTest() {
+function resetTest(){
   holdTimes = []; flightTimes = []; keyDownTimes = {};
   lastKeyUpTime = null; typedText = '';
   keystrokeMetrics = { meanHold:0, stdHold:0, stdFlight:0, keyCount:0 };

@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
+import os
 import numpy as np
 import pickle
 import uuid
 from datetime import datetime
 
 app = Flask(__name__)
+
+app.secret_key = os.urandom(24)
 
 # Load model, scaler, metrics
 with open('model/best_model.pkl', 'rb') as f:
