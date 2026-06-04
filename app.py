@@ -99,6 +99,23 @@ def predict():
 
         result = "Likely Parkinson's" if prediction == 1 else "Unlikely Parkinson's"
 
+        # Store result in session for report page
+        session['report_data'] = {
+        'patient_name': request.form.get('patient_name', 'Patient'),
+        'patient_age': request.form.get('patient_age', '—'),
+        'patient_gender': request.form.get('patient_gender', '—'),
+        'patient_mobile': request.form.get('patient_mobile', '—'),
+        'prediction': result,
+        'confidence': confidence,
+        'model_accuracy': float(model_accuracy),
+        'model_precision': float(model_precision),
+        'mean_hold': round(mean_hold, 2),
+        'std_hold': round(std_hold, 2),
+        'std_flight': round(std_flight, 2),
+        'key_count': key_count,
+        'typing_accuracy': typing_accuracy
+        }
+
         return render_template('index.html',
             prediction=result,
             confidence=confidence,
@@ -123,27 +140,32 @@ def predict():
             target_sentence=TARGET_SENTENCE,
             mean_hold=0, std_hold=0, std_flight=0,
             typing_accuracy=0, key_count=0)
-    
+
 @app.route('/report')
 def report():
-    # Read all values from query params (passed from frontend)
+    data = session.get('report_data')
+    if not data:
+        return "No report data found. Please complete the test first.", 400
+
+    from datetime import datetime
+    import uuid
+
     return render_template('report.html',
-        patient_name=request.args.get('name', 'Patient'),
-        patient_age=request.args.get('age', '—'),
-        patient_gender=request.args.get('gender', '—'),
-        patient_mobile=request.args.get('mobile', '—'),
+        patient_name=data['patient_name'],
+        patient_age=data['patient_age'],
+        patient_gender=data['patient_gender'],
+        patient_mobile=data['patient_mobile'],
         report_date=datetime.now().strftime('%d %B %Y'),
-        report_id=str(uuid.uuid4())[:8].upper(),
-        prediction=request.args.get('prediction', '—'),
-        is_positive=request.args.get('prediction', '').lower().startswith('likely'),
-        confidence=float(request.args.get('confidence', 0)),
-        model_accuracy=float(request.args.get('accuracy', 0)),
-        model_precision=float(request.args.get('precision', 0)),
-        mean_hold=float(request.args.get('mean_hold', 0)),
-        std_hold=float(request.args.get('std_hold', 0)),
-        std_flight=float(request.args.get('std_flight', 0)),
-        key_count=int(request.args.get('key_count', 0)),
-        typing_accuracy=float(request.args.get('typing_accuracy', 0))
+        report_id='NK-' + str(uuid.uuid4())[:8].upper(),
+        is_positive=data['prediction'].lower().startswith('likely'),
+        confidence=data['confidence'],
+        model_accuracy=data['model_accuracy'],
+        model_precision=data['model_precision'],
+        mean_hold=data['mean_hold'],
+        std_hold=data['std_hold'],
+        std_flight=data['std_flight'],
+        key_count=data['key_count'],
+        typing_accuracy=data['typing_accuracy']
     )
 
 if __name__ == '__main__':
