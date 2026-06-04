@@ -734,10 +734,14 @@ function submitPrediction() {
   console.log('typed_text:', typedText);
 
   // Build form data with raw arrays
-  const formData = new URLSearchParams();
-  formData.append('hold_times', JSON.stringify(holdTimes));
-  formData.append('flight_times', JSON.stringify(flightTimes));
-  formData.append('typed_text', typedText);
+const formData = new URLSearchParams();
+formData.append('hold_times', JSON.stringify(holdTimes));
+formData.append('flight_times', JSON.stringify(flightTimes));
+formData.append('typed_text', typedText);
+formData.append('patient_name', patientData.name || 'Patient');
+formData.append('patient_age', patientData.age || '—');
+formData.append('patient_gender', patientData.gender || '—');
+formData.append('patient_mobile', patientData.mobile || '—');
 
   fetch('/predict', {
     method: 'POST',
@@ -895,27 +899,9 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
 
 //function that formars the report data
 // ── Download PDF ──
-function downloadPDF(){
-  // Build URL with all report data as query params
-  const params = new URLSearchParams({
-    name: patientData.name || 'Patient',
-    age: patientData.age || '',
-    gender: patientData.gender || '',
-    mobile: patientData.mobile || '',
-    prediction: document.getElementById('verdictBadge').textContent,
-    confidence: document.getElementById('confidenceNum').textContent.replace('%',''),
-    accuracy: document.getElementById('modelAcc').textContent.replace('%','') / 100,
-    precision: document.getElementById('modelPrec').textContent.replace('%','') / 100,
-    mean_hold: document.getElementById('td_mh').textContent.replace(' ms',''),
-    std_hold: document.getElementById('td_sh').textContent.replace(' ms',''),
-    std_flight: document.getElementById('td_sf').textContent.replace(' ms',''),
-    key_count: document.getElementById('td_keys').textContent.replace(' keys',''),
-    typing_accuracy: 0
-  });
-  //open report in new tab-user does Ctrl+P→save as PDF
-  window.open('/report?' + params.toString(), '_blank');
+function downloadPDF() {
+  window.open('/report', '_blank');
 }
-
 
 // ── Reset test ──
 function resetTest(){
