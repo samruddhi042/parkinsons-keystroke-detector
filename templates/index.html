@@ -810,7 +810,7 @@ function renderFromFlaskData(flaskData) {
 
 // ── Render Results ──
 function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc, keyCount) {
-  const isPositive = prediction.toLowerCase().includes("likely parkinson");
+  const isPositive = prediction.toLowerCase().startsWith("likely");
   const confRound = Math.round(confidence);
 
   // Patient header
