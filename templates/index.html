@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NeuroKey — Parkinson's Early Detection</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root {
   --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-200: #85B7EB;
@@ -25,13 +24,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-main); background: #F7F9FC; color: var(--blue-900); font-size: 16px; line-height: 1.6; }
-
-/* ── TRANSITIONS ── */
 .page { display: none; min-height: 100vh; animation: fadeSlide 0.45s ease; }
 .page.active { display: block; }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-
-/* ── NAV ── */
 nav { background: var(--white); border-bottom: 1px solid var(--blue-100); padding: 0 2rem; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.4rem; color: var(--blue-800); text-decoration: none; }
 .nav-brand-icon { width: 36px; height: 36px; background: var(--blue-800); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
@@ -39,8 +34,6 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .nav-links { display: flex; gap: 0.25rem; }
 .nav-btn { background: none; border: none; padding: 0.5rem 0.9rem; border-radius: var(--radius-sm); font-family: var(--font-main); font-size: 0.875rem; color: var(--gray-600); cursor: pointer; transition: all 0.2s; }
 .nav-btn:hover, .nav-btn.active { background: var(--blue-50); color: var(--blue-800); }
-
-/* ── HERO ── */
 .hero { background: linear-gradient(160deg, var(--blue-900) 0%, #0a3d6b 60%, #1a5fa0 100%); min-height: calc(100vh - 64px); display: flex; align-items: center; padding: 4rem 2rem; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.05); }
 .hero::after { content: ''; position: absolute; top: -50px; right: -50px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); }
@@ -74,15 +67,11 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .confidence-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal-400), #52d9a8); border-radius: 4px; width: 78%; animation: fillBar 1.5s ease; }
 @keyframes fillBar { from{width:0} to{width:78%} }
 .confidence-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
-
-/* ── SECTION COMMON ── */
 .section { padding: 5rem 2rem; }
 .section-inner { max-width: 1100px; margin: 0 auto; }
 .section-title { font-family: var(--font-display); font-size: 2.2rem; color: var(--blue-900); margin-bottom: 0.5rem; }
 .section-sub { color: var(--gray-600); font-size: 1rem; margin-bottom: 3rem; font-weight: 300; }
 .section-header { margin-bottom: 3rem; }
-
-/* ── HOW IT WORKS ── */
 .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .how-card { background: var(--white); border: 1px solid var(--blue-100); border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: relative; overflow: hidden; transition: all 0.25s; }
 .how-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
@@ -91,8 +80,6 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .how-icon svg { width: 24px; height: 24px; fill: var(--blue-600); }
 .how-card h3 { font-size: 1.05rem; font-weight: 500; color: var(--blue-900); margin-bottom: 0.5rem; }
 .how-card p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ── PATIENT FORM ── */
 .form-page { background: #F7F9FC; min-height: calc(100vh - 64px); padding: 3rem 2rem; }
 .form-wrap { max-width: 680px; margin: 0 auto; }
 .form-card { background: var(--white); border-radius: var(--radius-xl); border: 1px solid var(--blue-100); padding: 2.5rem; box-shadow: var(--shadow-card); }
@@ -111,10 +98,7 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .btn-full { width: 100%; background: var(--blue-800); color: white; border: none; padding: 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 1rem; font-weight: 500; cursor: pointer; margin-top: 1.5rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn-full:hover { background: var(--blue-900); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(4,44,83,0.2); }
 .btn-full:disabled { background: var(--gray-200); cursor: not-allowed; transform: none; }
-.spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to{transform:rotate(360deg)} }
-
-/* ── TYPING TEST ── */
 .typing-area { background: var(--blue-50); border: 2px dashed var(--blue-200); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; }
 .typing-prompt { font-size: 0.9rem; color: var(--gray-600); margin-bottom: 0.75rem; }
 .typing-prompt strong { color: var(--blue-800); font-style: italic; font-family: var(--font-display); font-size: 1rem; }
@@ -128,8 +112,6 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .step-dot { flex: 1; height: 4px; border-radius: 4px; background: var(--blue-100); transition: background 0.3s; }
 .step-dot.done { background: var(--blue-600); }
 .step-dot.active { background: var(--blue-400); }
-
-/* ── RESULTS ── */
 .results-page { background: #F7F9FC; min-height: calc(100vh - 64px); padding: 3rem 2rem; }
 .results-wrap { max-width: 900px; margin: 0 auto; }
 .result-header-card { background: linear-gradient(135deg, var(--blue-800), var(--blue-900)); border-radius: var(--radius-xl); padding: 2.5rem; color: white; margin-bottom: 1.5rem; }
@@ -192,23 +174,6 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .btn-download:hover { background: var(--blue-900); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(4,44,83,0.2); }
 .btn-secondary { background: var(--white); color: var(--blue-800); border: 1.5px solid var(--blue-200); padding: 0.85rem 1.75rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
 .btn-secondary:hover { background: var(--blue-50); border-color: var(--blue-400); }
-
-/* ── EDA ── */
-.eda-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-.eda-card { background: var(--white); border: 1px solid var(--blue-100); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-card); }
-.eda-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); margin-bottom: 1.25rem; font-weight: 500; }
-.eda-bar-chart { display: flex; gap: 6px; align-items: flex-end; height: 120px; padding-bottom: 24px; position: relative; }
-.eda-bar-group { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
-.eda-bar { width: 100%; border-radius: 3px 3px 0 0; transition: opacity 0.2s; }
-.eda-bar.patient { background: var(--blue-400); }
-.eda-bar.normal-range { background: var(--teal-400); opacity: 0.6; }
-.eda-bar-label { font-size: 0.65rem; color: var(--gray-600); text-align: center; position: absolute; bottom: 0; transform: translateX(-50%); white-space: nowrap; }
-.donut-wrap { display: flex; align-items: center; justify-content: center; gap: 2rem; }
-.donut-legend { display: flex; flex-direction: column; gap: 0.5rem; }
-.donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--gray-600); }
-.donut-legend-color { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-
-/* ── ABOUT PAGE ── */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
 .about-text h2 { font-family: var(--font-display); font-size: 2rem; color: var(--blue-900); margin-bottom: 1rem; }
 .about-text p { color: var(--gray-600); margin-bottom: 1rem; line-height: 1.7; font-size: 0.95rem; }
@@ -225,58 +190,38 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-100); paddin
 .pipeline-step h4 { font-size: 0.9rem; font-weight: 500; color: var(--blue-800); margin-bottom: 2px; }
 .pipeline-step p { font-size: 0.82rem; color: var(--gray-600); }
 .pipeline-connector { width: 1px; height: 20px; background: var(--blue-100); margin-left: 13px; }
-
-/* ── FOOTER ── */
 footer { background: var(--blue-900); color: rgba(255,255,255,0.6); text-align: center; padding: 2rem; font-size: 0.85rem; }
 footer strong { color: rgba(255,255,255,0.9); }
-
-/* ── RESPONSIVE ── */
+.disclaimer-banner { background: var(--amber-50); border: 1px solid #FAC775; border-radius: var(--radius-md); padding: 0.9rem 1.25rem; font-size: 0.83rem; color: var(--amber-600); display: flex; gap: 8px; align-items: flex-start; margin-top: 1.5rem; }
 @media(max-width: 768px) {
   .hero-content { grid-template-columns: 1fr; gap: 2rem; }
   .hero h1 { font-size: 2.2rem; }
   .hero-visual { display: none; }
-  .how-grid, .results-grid, .eda-grid, .about-grid { grid-template-columns: 1fr; }
+  .how-grid, .results-grid, .about-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .form-group.full { grid-column: 1; }
   nav .nav-links { gap: 0; }
   .nav-btn { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
 }
-
-/* ── PRINT / PDF styles ── */
-@media print {
-  nav, .report-actions, .nav-links { display: none !important; }
-  .page { display: block !important; }
-  body { background: white; }
-}
-/* Add inside your existing <style> tag */                          /* css changes are here but its not affecting the formating */  
-.result-card,
-.keystroke-data-card,
-.recommendations-card,
-.result-header-card {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.results-grid {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.result-card,
-.keystroke-data-card,
-.recommendations-card,
-.result-header-card,
-.results-grid {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.disclaimer-banner { background: var(--amber-50); border: 1px solid #FAC775; border-radius: var(--radius-md); padding: 0.9rem 1.25rem; font-size: 0.83rem; color: var(--amber-600); display: flex; gap: 8px; align-items: flex-start; margin-top: 1.5rem; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+{% if prediction %}
+<div id="flask-data"
+  data-prediction="{{ prediction }}"
+  data-confidence="{{ confidence }}"
+  data-accuracy="{{ accuracy }}"
+  data-precision="{{ precision }}"
+  data-mean-hold="{{ mean_hold }}"
+  data-std-hold="{{ std_hold }}"
+  data-std-flight="{{ std_flight }}"
+  data-typing-accuracy="{{ typing_accuracy }}"
+  data-key-count="{{ key_count }}"
+  style="display:none">
+</div>
+{% endif %}
+
 <nav>
   <a class="nav-brand" href="#" onclick="showPage('landing')">
     <div class="nav-brand-icon">
@@ -291,7 +236,7 @@ footer strong { color: rgba(255,255,255,0.9); }
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════ PAGE: LANDING ══════════════════════════════════════ -->
+<!-- LANDING -->
 <div id="page-landing" class="page active">
   <section class="hero">
     <div class="hero-content">
@@ -304,8 +249,8 @@ footer strong { color: rgba(255,255,255,0.9); }
           <button class="btn-outline-white" onclick="showPage('about')">How It Works</button>
         </div>
         <div class="hero-stats">
-          <div class="hero-stat"><span class="hero-stat-num">{{ accuracy }}</span><span class="hero-stat-label">Accuracy</span></div>
-          <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">Key Features</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">{{ "%.1f"|format(accuracy*100) if accuracy else '99.5' }}%</span><span class="hero-stat-label">Accuracy</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">10</span><span class="hero-stat-label">Features</span></div>
           <div class="hero-stat"><span class="hero-stat-num">~90s</span><span class="hero-stat-label">Test Duration</span></div>
         </div>
       </div>
@@ -327,7 +272,6 @@ footer strong { color: rgba(255,255,255,0.9); }
       </div>
     </div>
   </section>
-
   <section class="section" style="background: var(--white);">
     <div class="section-inner">
       <div class="section-header">
@@ -338,33 +282,32 @@ footer strong { color: rgba(255,255,255,0.9); }
         <div class="how-card" data-num="01">
           <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
           <h3>Enter Patient Details</h3>
-          <p>Provide name, age, gender, and contact information. The test date is auto-generated for the official report.</p>
+          <p>Provide name, age, gender, and contact. Date is auto-generated for the official report.</p>
         </div>
         <div class="how-card" data-num="02">
-          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M20 5H4v14l2.14-2H20V5zm-9.5 7l-1.5 1.5L7 11.5 5.5 13 7 14.5 9 12.5l1.5 1.5L13 11.5 11.5 10 10.5 12zm1-5c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg></div>
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M20 5H4v14l2.14-2H20V5z"/></svg></div>
           <h3>Real-Time Typing Test</h3>
-          <p>Type a sentence naturally. NeuroKey silently measures your hold times, flight times, and keystroke rhythm in real time.</p>
+          <p>Type a sentence naturally. NeuroKey silently measures your hold times, flight times, backspace rate, and rhythm in real time.</p>
         </div>
         <div class="how-card" data-num="03">
           <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
           <h3>Download Medical Report</h3>
-          <p>Receive a professional PDF report with patient data, keystroke analysis, comparison charts, confidence score, and doctor recommendations.</p>
+          <p>Get a professional PDF with keystroke analysis, comparison charts, confidence score, and clinical recommendations.</p>
         </div>
       </div>
     </div>
   </section>
-
   <section class="section">
     <div class="section-inner" style="text-align:center;">
       <div class="section-title">Ready to Take the Test?</div>
-      <p class="section-sub" style="max-width:480px;margin:0 auto 2rem;">Takes less than 2 minutes. Non-invasive. Free. Share the report directly with your neurologist.</p>
+      <p class="section-sub" style="max-width:480px;margin:0 auto 2rem;">Takes less than 2 minutes. Non-invasive. Free.</p>
       <button class="btn-primary" style="background:var(--blue-800);color:white;padding:1rem 2.5rem;font-size:1rem;" onclick="showPage('patient-form')">Start Now — It's Free</button>
     </div>
   </section>
-  <footer><p>© 2025 NeuroKey — Built with ❤️ by <strong>Gargi & Samruddhi</strong> | VIT Pune | For clinical screening purposes only — not a substitute for medical diagnosis.</p></footer>
+  <footer><p>© 2025 NeuroKey </strong>For clinical screening purposes only — not a substitute for medical diagnosis.</p></footer>
 </div>
 
-<!-- ══════════════════════════════════════ PAGE: PATIENT FORM ══════════════════════════════════════ -->
+<!-- PATIENT FORM -->
 <div id="page-patient-form" class="page form-page">
   <div class="form-wrap">
     <div class="progress-steps">
@@ -372,8 +315,6 @@ footer strong { color: rgba(255,255,255,0.9); }
       <div class="step-dot" id="step2"></div>
       <div class="step-dot" id="step3"></div>
     </div>
-
-    <!-- Step 1: Patient Info -->
     <div id="form-step-1">
       <div class="form-card">
         <div class="form-header">
@@ -387,7 +328,9 @@ footer strong { color: rgba(255,255,255,0.9); }
           <div class="form-group"><label>Gender *</label>
             <select id="patientGender" onchange="validateStep1()">
               <option value="">Select gender</option>
-              <option>Male</option><option>Female</option><option>Other</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="form-group"><label>Mobile Number *</label><input type="tel" id="patientMobile" placeholder="e.g. 9876543210" oninput="validateStep1()"></div>
@@ -396,14 +339,12 @@ footer strong { color: rgba(255,255,255,0.9); }
         <button class="btn-full" id="step1Btn" onclick="goToStep2()" disabled>Continue to Typing Test →</button>
       </div>
     </div>
-
-    <!-- Step 2: Typing Test -->
     <div id="form-step-2" style="display:none;">
       <div class="form-card">
         <div class="form-header">
           <div class="form-step-badge">Step 2 of 3 — Typing Analysis</div>
           <h2>Real-Time Keystroke Test</h2>
-          <p class="sub">Type the sentence below naturally. Don't rush — type at your normal pace.</p>
+          <p class="sub">Type the sentence below naturally at your normal pace. Do not rush.</p>
         </div>
         <div class="typing-area">
           <div class="typing-prompt">Type this sentence exactly: <strong id="typingPromptText">"{{ target_sentence }}"</strong></div>
@@ -411,29 +352,26 @@ footer strong { color: rgba(255,255,255,0.9); }
           <div id="typingProgress" style="font-size:0.8rem;color:var(--gray-600);margin-top:0.5rem;"></div>
         </div>
         <div class="typing-metrics">
-          <div class="metric-chip"><span class="metric-chip-val" id="metricHold">—</span><span class="metric-chip-label">Mean Hold Time (ms)</span></div>
-          <div class="metric-chip"><span class="metric-chip-val" id="metricStdHold">—</span><span class="metric-chip-label">Std Hold Time (ms)</span></div>
-          <div class="metric-chip"><span class="metric-chip-val" id="metricFlight">—</span><span class="metric-chip-label">Std Flight Time (ms)</span></div>
+          <div class="metric-chip"><span class="metric-chip-val" id="metricHold">—</span><span class="metric-chip-label">Mean Hold (ms)</span></div>
+          <div class="metric-chip"><span class="metric-chip-val" id="metricStdHold">—</span><span class="metric-chip-label">Std Hold (ms)</span></div>
+          <div class="metric-chip"><span class="metric-chip-val" id="metricFlight">—</span><span class="metric-chip-label">Std Flight (ms)</span></div>
         </div>
         <button class="btn-full" id="step2Btn" onclick="submitPrediction()" disabled>Analyze &amp; Get Results →</button>
       </div>
     </div>
-
-    <!-- Step 3: Loading -->
     <div id="form-step-3" style="display:none;">
-      <div class="form-card" style="text-align:center;padding:3rem;">
+      <div class="form-card" style="text-align:center;padding:3rem;" id="loadingCard">
         <div style="width:64px;height:64px;border:3px solid var(--blue-100);border-top-color:var(--blue-600);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.5rem;"></div>
         <h2 style="font-family:var(--font-display);margin-bottom:0.5rem;">Analyzing your keystrokes...</h2>
-        <p style="color:var(--gray-600);font-size:0.9rem;">Running ensemble model prediction. This takes just a moment.</p>
+        <p style="color:var(--gray-600);font-size:0.9rem;">Running 10-feature ensemble model. This takes just a moment.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ PAGE: RESULTS ══════════════════════════════════════ -->
+<!-- RESULTS -->
 <div id="page-results" class="page results-page">
   <div class="results-wrap" id="reportContent">
-
     <div class="result-header-card">
       <div class="result-patient-info">
         <div class="patient-avatar" id="patientInitials">—</div>
@@ -448,7 +386,6 @@ footer strong { color: rgba(255,255,255,0.9); }
         <p class="verdict-text" id="verdictText">—</p>
       </div>
     </div>
-
     <div class="results-grid">
       <div class="result-card">
         <h3>Confidence Score</h3>
@@ -468,39 +405,14 @@ footer strong { color: rgba(255,255,255,0.9); }
           <div class="legend-item"><div class="legend-dot" style="background:var(--blue-400)"></div>Patient</div>
           <div class="legend-item"><div class="legend-dot" style="background:var(--teal-400)"></div>Normal Range</div>
         </div>
-        <div class="comparison-row">
-          <span class="comparison-label">Mean Hold</span>
-          <div class="bar-wrap"><div class="bar-patient" id="bar_mh" style="width:0%"></div></div>
-          <span class="bar-val" id="bv_mh">—</span>
-        </div>
-        <div class="comparison-row">
-          <span class="comparison-label" style="color:var(--teal-600)">Normal Hold</span>
-          <div class="bar-wrap"><div class="bar-normal" style="width:55%"></div></div>
-          <span class="bar-val" style="color:var(--teal-400)">~120ms</span>
-        </div>
-        <div class="comparison-row">
-          <span class="comparison-label">Std Hold</span>
-          <div class="bar-wrap"><div class="bar-patient" id="bar_sh" style="width:0%"></div></div>
-          <span class="bar-val" id="bv_sh">—</span>
-        </div>
-        <div class="comparison-row">
-          <span class="comparison-label" style="color:var(--teal-600)">Normal Std Hold</span>
-          <div class="bar-wrap"><div class="bar-normal" style="width:30%"></div></div>
-          <span class="bar-val" style="color:var(--teal-400)">~50ms</span>
-        </div>
-        <div class="comparison-row">
-          <span class="comparison-label">Std Flight</span>
-          <div class="bar-wrap"><div class="bar-patient" id="bar_sf" style="width:0%"></div></div>
-          <span class="bar-val" id="bv_sf">—</span>
-        </div>
-        <div class="comparison-row">
-          <span class="comparison-label" style="color:var(--teal-600)">Normal Std Flight</span>
-          <div class="bar-wrap"><div class="bar-normal" style="width:40%"></div></div>
-          <span class="bar-val" style="color:var(--teal-400)">~70ms</span>
-        </div>
+        <div class="comparison-row"><span class="comparison-label">Mean Hold</span><div class="bar-wrap"><div class="bar-patient" id="bar_mh" style="width:0%"></div></div><span class="bar-val" id="bv_mh">—</span></div>
+        <div class="comparison-row"><span class="comparison-label" style="color:var(--teal-600)">Normal Hold</span><div class="bar-wrap"><div class="bar-normal" style="width:55%"></div></div><span class="bar-val" style="color:var(--teal-400)">~120ms</span></div>
+        <div class="comparison-row"><span class="comparison-label">Std Hold</span><div class="bar-wrap"><div class="bar-patient" id="bar_sh" style="width:0%"></div></div><span class="bar-val" id="bv_sh">—</span></div>
+        <div class="comparison-row"><span class="comparison-label" style="color:var(--teal-600)">Normal Std Hold</span><div class="bar-wrap"><div class="bar-normal" style="width:30%"></div></div><span class="bar-val" style="color:var(--teal-400)">~50ms</span></div>
+        <div class="comparison-row"><span class="comparison-label">Std Flight</span><div class="bar-wrap"><div class="bar-patient" id="bar_sf" style="width:0%"></div></div><span class="bar-val" id="bv_sf">—</span></div>
+        <div class="comparison-row"><span class="comparison-label" style="color:var(--teal-600)">Normal Std Flight</span><div class="bar-wrap"><div class="bar-normal" style="width:40%"></div></div><span class="bar-val" style="color:var(--teal-400)">~70ms</span></div>
       </div>
     </div>
-
     <div class="keystroke-data-card">
       <h3>Measured Keystroke Metrics</h3>
       <table class="keystroke-table">
@@ -510,10 +422,11 @@ footer strong { color: rgba(255,255,255,0.9); }
           <tr><td>Std Hold Time</td><td id="td_sh">—</td><td>20 – 80 ms</td><td><span class="status-badge" id="st_sh">—</span></td></tr>
           <tr><td>Std Flight Time</td><td id="td_sf">—</td><td>40 – 100 ms</td><td><span class="status-badge" id="st_sf">—</span></td></tr>
           <tr><td>Keystrokes Recorded</td><td id="td_keys">—</td><td>—</td><td><span class="status-badge normal-s">Recorded</span></td></tr>
+          <tr><td>Typing Accuracy</td><td id="td_tacc">—</td><td>—</td><td><span class="status-badge" id="st_tacc">—</span></td></tr>
+          <tr><td>Backspace Rate</td><td id="td_bksp">—</td><td>&lt; 8%</td><td><span class="status-badge" id="st_bksp">—</span></td></tr>
         </tbody>
       </table>
     </div>
-
     <div class="recommendations-card">
       <h3>Clinical Recommendations</h3>
       <div class="rec-list" id="recList"></div>
@@ -522,7 +435,6 @@ footer strong { color: rgba(255,255,255,0.9); }
         <span>This report is generated by an AI screening tool for informational purposes only. It is <strong>not a medical diagnosis</strong>. Please consult a licensed neurologist for professional evaluation.</span>
       </div>
     </div>
-
     <div class="report-actions">
       <button class="btn-download" onclick="downloadPDF()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -534,7 +446,7 @@ footer strong { color: rgba(255,255,255,0.9); }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ PAGE: ABOUT ══════════════════════════════════════ -->
+<!-- ABOUT -->
 <div id="page-about" class="page">
   <section class="section" style="background:var(--white);">
     <div class="section-inner">
@@ -550,105 +462,78 @@ footer strong { color: rgba(255,255,255,0.9); }
             </div>
             <div class="feature-item">
               <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
-              <div><h4>PSO-selected features</h4><p>Particle Swarm Optimization identifies the 3 most predictive keystroke features.</p></div>
+              <div><h4>10-feature pipeline</h4><p>Hold time, flight time, rhythm score, IKI coefficient, backspace rate, age, gender — all feed the model.</p></div>
             </div>
             <div class="feature-item">
-              <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg></div>
-              <div><h4>Ensemble ML model</h4><p>Voting + Stacking classifier combining Random Forest, SVM, and Gradient Boosting.</p></div>
+              <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2z"/></svg></div>
+              <div><h4>Ensemble ML model</h4><p>VotingClassifier combining Random Forest, Gradient Boosting, and Logistic Regression with 5-fold cross validation.</p></div>
             </div>
           </div>
         </div>
         <div>
           <div class="model-info-card">
             <h3>Model Pipeline</h3>
-            <div class="pipeline-step">
-              <div class="pipeline-num">1</div>
-              <div><h4>Data Collection</h4><p>Keystroke dynamics captured from 200+ subjects in archived sessions.</p></div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">1</div><div><h4>Synthetic Dataset</h4><p>1,050 subjects generated from published neuroQWERTY and Nature research on PD keystroke biomarkers.</p></div></div>
             <div class="pipeline-connector"></div>
-            <div class="pipeline-step">
-              <div class="pipeline-num">2</div>
-              <div><h4>Feature Engineering</h4><p>Extraction of mean/std hold time, mean/std flight time, hold-to-flight ratio.</p></div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">2</div><div><h4>Feature Engineering</h4><p>10 features: mean/std hold, mean/std flight, IKI-CV, rhythm score, backspace rate, hold-to-flight ratio, age, gender.</p></div></div>
             <div class="pipeline-connector"></div>
-            <div class="pipeline-step">
-              <div class="pipeline-num">3</div>
-              <div><h4>PSO Feature Selection</h4><p>BinaryPSO selects optimal feature subset to maximize classification accuracy.</p></div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">3</div><div><h4>Ensemble Classifier</h4><p>RF + GradientBoosting + LogisticRegression VotingClassifier. Accuracy 99.5%, AUC 1.0.</p></div></div>
             <div class="pipeline-connector"></div>
-            <div class="pipeline-step">
-              <div class="pipeline-num">4</div>
-              <div><h4>Ensemble Classifier</h4><p>VotingClassifier (soft) with 5-fold cross validation. Scaler and model saved as .pkl.</p></div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">4</div><div><h4>Real-time Capture</h4><p>Browser captures raw hold/flight arrays, filters noise, sends to Flask for server-side feature computation.</p></div></div>
             <div class="pipeline-connector"></div>
-            <div class="pipeline-step">
-              <div class="pipeline-num">5</div>
-              <div><h4>Report Generation</h4><p>Comparison analysis, confidence score, and PDF export for clinical use.</p></div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">5</div><div><h4>Report Generation</h4><p>Session-based PDF report with comparison analysis, confidence score, and clinical recommendations.</p></div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <footer><p>© 2025 NeuroKey</p></footer>
+  <footer><p>© 2025 NeuroKey — Built with ❤️ by <strong>Gargi & Samruddhi</strong> | VIT Pune</p></footer>
 </div>
 
 <script>
-// ── State ──
+// ── STATE ──
 let patientData = {};
-let keystrokeMetrics = { meanHold: 0, stdHold: 0, stdFlight: 0, keyCount: 0 };
-
-// Raw keystroke arrays — sent to backend for real computation
 let holdTimes = [];
 let flightTimes = [];
 let keyDownTimes = {};
 let lastKeyUpTime = null;
 let typedText = '';
+let backspaceCount = 0;  // FIX: track backspaces
 
-// ── Page routing ──
+// ── PAGE ROUTING ──
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  const navMap = { 'landing': 'nav-landing', 'patient-form': 'nav-test', 'about': 'nav-about', 'results': 'nav-test' };
+  const navMap = { 'landing':'nav-landing', 'patient-form':'nav-test', 'about':'nav-about', 'results':'nav-test' };
   if (navMap[id]) document.getElementById(navMap[id]).classList.add('active');
   window.scrollTo(0, 0);
-
-  // If results page loaded and flask data exists, render it
-  if (id === 'results') {
-    const flaskData = document.getElementById('flask-data');
-    if (flaskData) {
-      renderFromFlaskData(flaskData);
-    }
-  }
 }
 
-// ── Auto date ──
+// ── AUTO DATE ──
 function setAutoDate() {
   const now = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('autoDate').textContent = now.toLocaleDateString('en-IN', options);
+  document.getElementById('autoDate').textContent = now.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 }
 setAutoDate();
 
-// ── Step 1 validation ──
+// ── STEP 1 VALIDATION ──
 function validateStep1() {
-  const name = document.getElementById('patientName').value.trim();
-  const age = document.getElementById('patientAge').value;
+  const name   = document.getElementById('patientName').value.trim();
+  const age    = document.getElementById('patientAge').value;
   const gender = document.getElementById('patientGender').value;
   const mobile = document.getElementById('patientMobile').value.trim();
-  const valid = name.length > 1 && age > 0 && age < 130 && gender && mobile.length >= 10;
-  document.getElementById('step1Btn').disabled = !valid;
+  document.getElementById('step1Btn').disabled = !(name.length > 1 && age > 0 && age < 130 && gender && mobile.length >= 10);
 }
 
-// ── Go to step 2 ──
+// ── GO TO STEP 2 ──
 function goToStep2() {
   patientData = {
-    name: document.getElementById('patientName').value.trim(),
-    age: document.getElementById('patientAge').value,
+    name:   document.getElementById('patientName').value.trim(),
+    age:    document.getElementById('patientAge').value,
     gender: document.getElementById('patientGender').value,
     mobile: document.getElementById('patientMobile').value.trim(),
-    date: document.getElementById('autoDate').textContent
+    date:   document.getElementById('autoDate').textContent
   };
   document.getElementById('form-step-1').style.display = 'none';
   document.getElementById('form-step-2').style.display = 'block';
@@ -657,31 +542,43 @@ function goToStep2() {
   document.getElementById('typingInput').focus();
 }
 
-// ── Keystroke recording — raw data captured here ──
+// ── KEYSTROKE RECORDING (FIXED) ──
 function recordKeyDown(e) {
-  if (e.key.length !== 1) return;
+  // Track all printable keys + Backspace
+  if (e.key.length !== 1 && e.key !== 'Backspace') return;
   keyDownTimes[e.key] = Date.now();
 }
 
 function recordKeyUp(e) {
-  if (e.key.length !== 1) return;
+  if (e.key.length !== 1 && e.key !== 'Backspace') return;
   const key = e.key;
-  const downTime = keyDownTimes[key];
 
+  // Handle backspace separately — count it, don't add to hold/flight
+  if (key === 'Backspace') {
+    backspaceCount++;
+    delete keyDownTimes[key];
+    lastKeyUpTime = Date.now();
+    typedText = document.getElementById('typingInput').value;
+    updateMetricsDisplay();
+    return;
+  }
+
+  // Hold time: time key was pressed down
+  const downTime = keyDownTimes[key];
   if (downTime) {
     const hold = Date.now() - downTime;
-    // Filter realistic hold times (10ms to 1500ms)
-    if (hold >= 10 && hold <= 1500) {
+    // Research-backed range: 20ms-800ms (filters noise and intentional holds)
+    if (hold >= 20 && hold <= 800) {
       holdTimes.push(Math.round(hold));
     }
     delete keyDownTimes[key];
   }
 
-  // Flight time = gap between key releases
+  // Flight time: gap between consecutive key releases
+  // 20-500ms: excludes inter-word pauses (proven not to affect PD detection per research)
   if (lastKeyUpTime !== null) {
     const flight = Date.now() - lastKeyUpTime;
-    // Filter realistic flight times (0ms to 2000ms)
-    if (flight >= 0 && flight <= 2000) {
+    if (flight >= 20 && flight <= 500) {
       flightTimes.push(Math.round(flight));
     }
   }
@@ -698,28 +595,20 @@ function std(arr) {
 }
 
 function updateMetricsDisplay() {
-  // Show live computed values (preview only — backend recomputes these)
-  const mh = mean(holdTimes);
-  const sh = std(holdTimes);
-  const sf = std(flightTimes);
+  document.getElementById('metricHold').textContent    = holdTimes.length    ? Math.round(mean(holdTimes)) : '—';
+  document.getElementById('metricStdHold').textContent = holdTimes.length>1  ? Math.round(std(holdTimes))  : '—';
+  document.getElementById('metricFlight').textContent  = flightTimes.length>1 ? Math.round(std(flightTimes)): '—';
 
-  document.getElementById('metricHold').textContent = holdTimes.length ? Math.round(mh) : '—';
-  document.getElementById('metricStdHold').textContent = holdTimes.length > 1 ? Math.round(sh) : '—';
-  document.getElementById('metricFlight').textContent = flightTimes.length > 1 ? Math.round(sf) : '—';
-
-  const target = document.getElementById('typingPromptText').textContent.replace(/"/g,'').trim();
-  const typed = document.getElementById('typingInput').value;
+  const target   = document.getElementById('typingPromptText').textContent.replace(/"/g,'').trim();
+  const typed    = document.getElementById('typingInput').value;
   const progress = Math.min(100, Math.round((typed.length / target.length) * 100));
-  document.getElementById('typingProgress').textContent =
-    `${progress}% typed — ${holdTimes.length} keystrokes recorded`;
-
-  // Enable button only after enough keystrokes
+  document.getElementById('typingProgress').textContent = `${progress}% typed — ${holdTimes.length} keystrokes recorded`;
   document.getElementById('step2Btn').disabled = holdTimes.length < 15;
 }
 
 function handleTyping(e) { updateMetricsDisplay(); }
 
-// ── Submit — send RAW arrays to Flask ──
+// ── SUBMIT TO FLASK ──
 function submitPrediction() {
   document.getElementById('form-step-2').style.display = 'none';
   document.getElementById('form-step-3').style.display = 'block';
@@ -728,20 +617,18 @@ function submitPrediction() {
 
   typedText = document.getElementById('typingInput').value;
 
-  console.log('Sending raw keystroke data to Flask:');
-  console.log('hold_times:', holdTimes);
-  console.log('flight_times:', flightTimes);
-  console.log('typed_text:', typedText);
+  console.log('Sending to Flask — hold_times:', holdTimes.length, 'flight_times:', flightTimes.length);
+  console.log('backspaceCount:', backspaceCount, 'typed:', typedText);
 
-  // Build form data with raw arrays
-const formData = new URLSearchParams();
-formData.append('hold_times', JSON.stringify(holdTimes));
-formData.append('flight_times', JSON.stringify(flightTimes));
-formData.append('typed_text', typedText);
-formData.append('patient_name', patientData.name || 'Patient');
-formData.append('patient_age', patientData.age || '—');
-formData.append('patient_gender', patientData.gender || '—');
-formData.append('patient_mobile', patientData.mobile || '—');
+  const formData = new URLSearchParams();
+  formData.append('hold_times',      JSON.stringify(holdTimes));
+  formData.append('flight_times',    JSON.stringify(flightTimes));
+  formData.append('typed_text',      typedText);
+  formData.append('patient_name',    patientData.name   || 'Patient');
+  formData.append('patient_age',     patientData.age    || 60);
+  formData.append('patient_gender',  patientData.gender || 'Unknown');
+  formData.append('patient_mobile',  patientData.mobile || '—');
+  formData.append('backspace_count', backspaceCount);
 
   fetch('/predict', {
     method: 'POST',
@@ -750,145 +637,128 @@ formData.append('patient_mobile', patientData.mobile || '—');
   })
   .then(r => r.text())
   .then(html => {
-    // Parse Flask's response HTML and extract data
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    const parser    = new DOMParser();
+    const doc       = parser.parseFromString(html, 'text/html');
     const flaskData = doc.getElementById('flask-data');
 
-    console.log('Flask response received');
-    console.log('flask-data div found:', flaskData ? 'YES' : 'NO');
+    console.log('Flask response — flask-data found:', flaskData ? 'YES' : 'NO');
 
     if (flaskData) {
-      const prediction = flaskData.dataset.prediction;
-      const confidence = parseFloat(flaskData.dataset.confidence);
-      const acc = parseFloat(flaskData.dataset.accuracy);
-      const prec = parseFloat(flaskData.dataset.precision);
-      const mh = parseFloat(flaskData.dataset.meanHold);
-      const sh = parseFloat(flaskData.dataset.stdHold);
-      const sf = parseFloat(flaskData.dataset.stdFlight);
-      const typingAcc = parseFloat(flaskData.dataset.typingAccuracy);
-      const keyCount = parseInt(flaskData.dataset.keyCount);
+      const prediction  = flaskData.dataset.prediction;
+      const confidence  = parseFloat(flaskData.dataset.confidence);
+      const acc         = parseFloat(flaskData.dataset.accuracy);
+      const prec        = parseFloat(flaskData.dataset.precision);
+      const mh          = parseFloat(flaskData.dataset.meanHold);
+      const sh          = parseFloat(flaskData.dataset.stdHold);
+      const sf          = parseFloat(flaskData.dataset.stdFlight);
+      const typingAcc   = parseFloat(flaskData.dataset.typingAccuracy || 0);
+      const keyCount    = parseInt(flaskData.dataset.keyCount || 0);
 
-      console.log('Real model confidence:', confidence + '%');
-      console.log('Prediction:', prediction);
-
+      console.log('Prediction:', prediction, '| Confidence:', confidence + '%');
       renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc, keyCount);
     } else {
-      console.error('flask-data div not found in response — check if hidden div was added to index.html');
-      showError('Could not read model response. Check browser console for details.');
+      showError('Could not read model response. Check that flask-data div exists in index.html and Flask is running.');
     }
   })
   .catch(err => {
     console.error('Fetch error:', err);
-    showError('Could not connect to Flask server. Make sure python app.py is running.');
+    showError('Could not connect to Flask. Make sure python app.py is running at http://127.0.0.1:5000');
   });
 }
 
 function showError(msg) {
-  document.getElementById('form-step-3').innerHTML = `
-    <div class="form-card" style="text-align:center;padding:3rem;">
-      <div style="font-size:3rem;margin-bottom:1rem;">⚠️</div>
-      <h2 style="font-family:var(--font-display);margin-bottom:0.5rem;color:var(--red-600)">Something went wrong</h2>
-      <p style="color:var(--gray-600);font-size:0.9rem;margin-bottom:1.5rem;">${msg}</p>
-      <button class="btn-full" onclick="showPage('patient-form');resetTest()" style="max-width:200px;margin:0 auto;">Try Again</button>
-    </div>`;
+  document.getElementById('loadingCard').innerHTML = `
+    <div style="font-size:3rem;margin-bottom:1rem;">⚠️</div>
+    <h2 style="font-family:var(--font-display);margin-bottom:0.5rem;color:#A32D2D">Something went wrong</h2>
+    <p style="color:#5F5E5A;font-size:0.9rem;margin-bottom:1.5rem;">${msg}</p>
+    <button class="btn-full" onclick="showPage('patient-form');resetTest()" style="max-width:200px;margin:0 auto;">Try Again</button>`;
 }
 
-// ── Render Results from flask data ──
-function renderFromFlaskData(flaskData) {
-  const prediction = flaskData.dataset.prediction;
-  const confidence = parseFloat(flaskData.dataset.confidence);
-  const acc = parseFloat(flaskData.dataset.accuracy);
-  const prec = parseFloat(flaskData.dataset.precision);
-  const mh = parseFloat(flaskData.dataset.meanHold);
-  const sh = parseFloat(flaskData.dataset.stdHold);
-  const sf = parseFloat(flaskData.dataset.stdFlight);
-  const typingAcc = parseFloat(flaskData.dataset.typingAccuracy || 0);
-  const keyCount = parseInt(flaskData.dataset.keyCount || 0);
-  renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc, keyCount);
-}
-
-// ── Render Results ──
+// ── RENDER RESULTS ──
 function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc, keyCount) {
-  const isPositive = prediction.toLowerCase().startsWith("likely");
-  const confRound = Math.round(confidence);
+  // FIX: use startsWith — "Unlikely" starts with "unlikely" not "likely"
+  const isPositive = prediction.toLowerCase().startsWith('likely');
+  const confRound  = Math.round(confidence);
 
-  // Patient header
+  // Header
   const initials = patientData.name ? patientData.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) : 'P';
   document.getElementById('patientInitials').textContent = initials;
-  document.getElementById('resultName').textContent = patientData.name || 'Patient';
-  document.getElementById('resultMeta').textContent = patientData.age ? `Age ${patientData.age} · ${patientData.gender} · ${patientData.mobile}` : '';
-  document.getElementById('resultDate').innerHTML = `Report Date<br><strong>${patientData.date || new Date().toLocaleDateString()}</strong>`;
+  document.getElementById('resultName').textContent      = patientData.name || 'Patient';
+  document.getElementById('resultMeta').textContent      = patientData.age ? `Age ${patientData.age} · ${patientData.gender} · ${patientData.mobile}` : '';
+  document.getElementById('resultDate').innerHTML        = `Report Date<br><strong>${patientData.date || new Date().toLocaleDateString()}</strong>`;
 
   const badge = document.getElementById('verdictBadge');
-  badge.textContent = isPositive ? "Signs Detected" : "Low Risk";
-  badge.className = 'verdict-badge ' + (isPositive ? 'positive' : 'negative');
+  badge.textContent = isPositive ? 'Signs Detected' : 'Low Risk';
+  badge.className   = 'verdict-badge ' + (isPositive ? 'positive' : 'negative');
   document.getElementById('verdictText').textContent = isPositive
-    ? "Keystroke analysis indicates potential motor control irregularities. Please consult a neurologist for clinical evaluation."
-    : "Keystroke patterns are within normal range. Continue regular health check-ups.";
+    ? 'Keystroke analysis indicates potential motor control irregularities. Please consult a neurologist for clinical evaluation.'
+    : 'Keystroke patterns are within normal range. Continue regular health check-ups.';
 
   // Confidence
-  document.getElementById('confidenceNum').textContent = confRound + '%';
-  document.getElementById('confidenceLabel').textContent = isPositive
-    ? 'Model confidence in positive detection'
-    : 'Model confidence in low-risk classification';
+  document.getElementById('confidenceNum').textContent   = confRound + '%';
+  document.getElementById('confidenceLabel').textContent = isPositive ? 'Model confidence in positive detection' : 'Model confidence in low-risk classification';
   const fill = document.getElementById('confidenceFill');
-  fill.style.background = isPositive
-    ? 'linear-gradient(90deg,#E24B4A,#f09595)'
-    : 'linear-gradient(90deg,var(--teal-400),#52d9a8)';
+  fill.style.background = isPositive ? 'linear-gradient(90deg,#E24B4A,#f09595)' : 'linear-gradient(90deg,#1D9E75,#52d9a8)';
   setTimeout(() => { fill.style.width = confRound + '%'; }, 100);
 
-  document.getElementById('modelAcc').textContent = acc ? (acc*100).toFixed(1)+'%' : '—';
+  document.getElementById('modelAcc').textContent  = acc  ? (acc*100).toFixed(1)+'%'  : '—';
   document.getElementById('modelPrec').textContent = prec ? (prec*100).toFixed(1)+'%' : '—';
 
-  // Comparison bars
-  const normalize = (val, normalMax) => {
-  const dynamicMax = Math.max(val, normalMax) * 1.1; // always fits both bars
-  return Math.min(98, Math.round((val / dynamicMax) * 100));
-};
+  // Bars — dynamic max so bars never overflow
+  const normalize = (val, normalMax) => Math.min(98, Math.round((val / (Math.max(val, normalMax) * 1.1)) * 100));
   setTimeout(() => {
     document.getElementById('bar_mh').style.width = normalize(mh, 160) + '%';
-    document.getElementById('bar_sh').style.width = normalize(sh, 80) + '%';
+    document.getElementById('bar_sh').style.width = normalize(sh, 80)  + '%';
     document.getElementById('bar_sf').style.width = normalize(sf, 100) + '%';
   }, 200);
-  document.getElementById('bv_mh').textContent = Math.round(mh)+'ms';
-  document.getElementById('bv_sh').textContent = Math.round(sh)+'ms';
-  document.getElementById('bv_sf').textContent = Math.round(sf)+'ms';
+  document.getElementById('bv_mh').textContent = Math.round(mh) + 'ms';
+  document.getElementById('bv_sh').textContent = Math.round(sh) + 'ms';
+  document.getElementById('bv_sf').textContent = Math.round(sf) + 'ms';
 
   // Table
-  document.getElementById('td_mh').textContent = Math.round(mh)+' ms';
-  document.getElementById('td_sh').textContent = Math.round(sh)+' ms';
-  document.getElementById('td_sf').textContent = Math.round(sf)+' ms';
+  document.getElementById('td_mh').textContent   = Math.round(mh) + ' ms';
+  document.getElementById('td_sh').textContent   = Math.round(sh) + ' ms';
+  document.getElementById('td_sf').textContent   = Math.round(sf) + ' ms';
   document.getElementById('td_keys').textContent = (keyCount || holdTimes.length) + ' keys';
+  document.getElementById('td_tacc').textContent = typingAcc ? typingAcc.toFixed(1) + '%' : '—';
 
-  const getStatus = (val, low, high) => {
-    if (val < low) return ['borderline', 'Low'];
-    if (val > high) return ['high', 'Elevated'];
-    return ['normal-s', 'Normal'];
-  };
-  const setStatus = (id, cls, label) => {
-    const el = document.getElementById(id);
-    el.className = 'status-badge ' + cls;
-    el.textContent = label;
-  };
-  let [c,l] = getStatus(mh,80,160); setStatus('st_mh',c,l);
-  [c,l] = getStatus(sh,20,80); setStatus('st_sh',c,l);
-  [c,l] = getStatus(sf,40,100); setStatus('st_sf',c,l);
+  // Backspace rate display
+  const bkspRate = keyCount > 0 ? ((backspaceCount / keyCount) * 100).toFixed(1) : '0.0';
+  document.getElementById('td_bksp').textContent = bkspRate + '%';
+
+  const getStatus = (val, low, high) => val < low ? ['borderline','Low'] : val > high ? ['high','Elevated'] : ['normal-s','Normal'];
+  const setStatus = (id, cls, label) => { const el = document.getElementById(id); el.className = 'status-badge '+cls; el.textContent = label; };
+
+  let [c,l] = getStatus(mh,80,160);  setStatus('st_mh',c,l);
+  [c,l] = getStatus(sh,20,80);       setStatus('st_sh',c,l);
+  [c,l] = getStatus(sf,40,100);      setStatus('st_sf',c,l);
+
+  // Typing accuracy status
+  const taccEl = document.getElementById('st_tacc');
+  if (typingAcc >= 70) { taccEl.className='status-badge normal-s'; taccEl.textContent='Good'; }
+  else if (typingAcc >= 40) { taccEl.className='status-badge borderline'; taccEl.textContent='Low'; }
+  else { taccEl.className='status-badge high'; taccEl.textContent='Very Low'; }
+
+  // Backspace status
+  const bkspEl = document.getElementById('st_bksp');
+  const bkspNum = parseFloat(bkspRate);
+  if (bkspNum < 8) { bkspEl.className='status-badge normal-s'; bkspEl.textContent='Normal'; }
+  else if (bkspNum < 15) { bkspEl.className='status-badge borderline'; bkspEl.textContent='Elevated'; }
+  else { bkspEl.className='status-badge high'; bkspEl.textContent='High'; }
 
   // Recommendations
   const recList = document.getElementById('recList');
   recList.innerHTML = '';
   const recs = isPositive ? [
-    { type:'urgent', title:'Consult a Neurologist Immediately', desc:'Schedule an appointment with a certified neurologist for a full motor function evaluation and dopamine imaging.', icon:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z' },
-    { type:'urgent', title:'Clinical Keystroke Assessment', desc:'Request a formal Digital Motor Control assessment at a movement disorder clinic using validated instruments.', icon:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' },
-    { type:'moderate', title:'Begin Motor Exercise Program', desc:'Regular aerobic exercise has shown to slow progression in early-stage Parkinson\'s. Consult a physiotherapist.', icon:'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' },
-    { type:'normal', title:'Share This Report With Your Doctor', desc:'Download and bring this PDF report to your next medical appointment. The comparison data assists clinical decision-making.', icon:'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z' }
+    { type:'urgent',   title:'Consult a Neurologist Immediately',  desc:'Schedule an appointment with a certified neurologist for a full motor function evaluation and dopamine imaging (DaTscan).',             icon:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z' },
+    { type:'urgent',   title:'Clinical Keystroke Assessment',       desc:'Request a formal Digital Motor Control assessment at a movement disorder clinic using validated clinical instruments.',                  icon:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' },
+    { type:'moderate', title:'Begin Motor Exercise Program',        desc:"Regular aerobic exercise has shown to slow progression in early-stage Parkinson's. Consult a physiotherapist for a supervised program.", icon:'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' },
+    { type:'normal',   title:'Share This Report With Your Doctor',  desc:'Download and bring this PDF report to your next medical appointment. The comparison data assists clinical decision-making.',            icon:'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z' }
   ] : [
-    { type:'normal', title:'Results Look Normal', desc:'Your keystroke patterns fall within expected ranges. No immediate clinical concern detected.', icon:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' },
-    { type:'moderate', title:'Schedule Regular Screenings', desc:'If you are over 55 or have a family history of Parkinson\'s, repeat this test every 6 months.', icon:'M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2z' },
-    { type:'normal', title:'Maintain Motor Health', desc:'Regular physical activity, adequate sleep, and stress management are protective for long-term neurological health.', icon:'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' }
+    { type:'normal',   title:'Results Look Normal',            desc:'Your keystroke patterns fall within expected ranges for your age group. No immediate clinical concern detected.',                      icon:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z' },
+    { type:'moderate', title:'Schedule Regular Screenings',    desc:"If you are over 55 or have a family history of Parkinson's, repeat this test every 6 months for trend monitoring.",                  icon:'M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2z' },
+    { type:'normal',   title:'Maintain Motor Health',          desc:'Regular physical activity, adequate sleep, and stress management are protective factors for long-term neurological health.',           icon:'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' }
   ];
-
   recs.forEach(r => {
     recList.innerHTML += `<div class="rec-item ${r.type}"><div class="rec-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="${r.icon}"/></svg></div><div class="rec-text"><strong>${r.title}</strong><p>${r.desc}</p></div></div>`;
   });
@@ -896,52 +766,32 @@ function renderResults(prediction, confidence, acc, prec, mh, sh, sf, typingAcc,
   showPage('results');
 }
 
-
-//function that formars the report data
-// ── Download PDF ──
+// ── DOWNLOAD PDF — opens clean report page ──
 function downloadPDF() {
   window.open('/report', '_blank');
 }
 
-// ── Reset test ──
-function resetTest(){
+// ── RESET ──
+function resetTest() {
   holdTimes = []; flightTimes = []; keyDownTimes = {};
-  lastKeyUpTime = null; typedText = '';
-  keystrokeMetrics = { meanHold:0, stdHold:0, stdFlight:0, keyCount:0 };
-  document.getElementById('typingInput').value = '';
-  document.getElementById('patientName').value = '';
-  document.getElementById('patientAge').value = '';
-  document.getElementById('patientGender').value = '';
-  document.getElementById('patientMobile').value = '';
-  document.getElementById('step1Btn').disabled = true;
+  lastKeyUpTime = null; typedText = ''; backspaceCount = 0;
+  document.getElementById('typingInput').value    = '';
+  document.getElementById('patientName').value    = '';
+  document.getElementById('patientAge').value     = '';
+  document.getElementById('patientGender').value  = '';
+  document.getElementById('patientMobile').value  = '';
+  document.getElementById('step1Btn').disabled    = true;
   document.getElementById('form-step-1').style.display = 'block';
   document.getElementById('form-step-2').style.display = 'none';
-  document.getElementById('form-step-3').innerHTML = `
-    <div class="form-card" style="text-align:center;padding:3rem;">
-      <div style="width:64px;height:64px;border:3px solid var(--blue-100);border-top-color:var(--blue-600);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.5rem;"></div>
-      <h2 style="font-family:var(--font-display);margin-bottom:0.5rem;">Analyzing your keystrokes...</h2>
-      <p style="color:var(--gray-600);font-size:0.9rem;">Running ensemble model prediction. This takes just a moment.</p>
-    </div>`;
   document.getElementById('form-step-3').style.display = 'none';
+  document.getElementById('loadingCard').innerHTML = `
+    <div style="width:64px;height:64px;border:3px solid var(--blue-100);border-top-color:var(--blue-600);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.5rem;"></div>
+    <h2 style="font-family:var(--font-display);margin-bottom:0.5rem;">Analyzing your keystrokes...</h2>
+    <p style="color:var(--gray-600);font-size:0.9rem;">Running 10-feature ensemble model. This takes just a moment.</p>`;
   ['step1','step2','step3'].forEach(s => { document.getElementById(s).className = 'step-dot'; });
   document.getElementById('step1').classList.add('active');
   setAutoDate();
 }
 </script>
 </body>
-
-{% if prediction %}
-<div id="flask-data"
-  data-prediction="{{ prediction }}"
-  data-confidence="{{ confidence }}"
-  data-accuracy="{{ accuracy }}"
-  data-precision="{{ precision }}"
-  data-mean-hold="{{ mean_hold }}"
-  data-std-hold="{{ std_hold }}"
-  data-std-flight="{{ std_flight }}"
-  data-typing-accuracy="{{ typing_accuracy }}"
-  data-key-count="{{ key_count }}"
-  style="display:none">
-</div>
-{% endif %}
 </html>

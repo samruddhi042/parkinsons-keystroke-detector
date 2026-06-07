@@ -1,4 +1,8 @@
-﻿flask
+﻿
+@"
+flask
 numpy
 pandas
 scikit-learn
+gunicorn
+"@ | Out-File -FilePath C:\Users\samru\Projects\parkinsons-keystroke-detector\requirements.txt -Encoding utf8
