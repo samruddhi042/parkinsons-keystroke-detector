@@ -26,6 +26,14 @@ Traditional screening requires:
 
 ---
 
+## Publication
+
+This work has been published in Atlantis Press Conference Proceedings:
+
+https://www.atlantis-press.com/proceedings/icsiaiml-25/126021170
+
+---
+
 ## Research Foundation
 
 NeuroKey's feature set and normal value ranges are grounded in four peer-reviewed publications:
