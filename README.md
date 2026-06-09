@@ -39,25 +39,6 @@ NeuroKey's feature set and normal value ranges are grounded in four peer-reviewe
 
 ---
 
-## Dataset
-
-### Generation Approach
-
-The dataset was synthetically generated from published research values using `generate_and_train.py`. It contains **1,050 subjects** (600 healthy controls, 450 PD patients) across age groups 30–82, with realistic age-stratified distributions.
-
-### Why Synthetic?
-
-The original archived keystroke data contained corrupted values (negative hold times, hold times exceeding 2.8 million ms) making it unsuitable for training. The synthetic dataset was built from scratch using published normal ranges, validated against research findings, and generates realistic inter-subject variability.
-
-### Class Distribution
-
-| Class | Count | Percentage |
-|---|---|---|
-| Healthy (0) | 600 | 57.1% |
-| Parkinson's (1) | 450 | 42.9% |
-
----
-
 ## Feature Engineering
 
 The model uses **10 features** extracted from raw keystroke events. Each feature has a specific neurological basis:
