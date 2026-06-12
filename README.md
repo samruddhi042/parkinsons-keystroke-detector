@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" />
 </p>
 
-> A non-invasive, real-time Parkinson's disease screening tool that analyzes keystroke dynamics — the way you type — to detect early motor control irregularities associated with Parkinson's disease. Built with Flask, scikit-learn, and a research-backed 10-feature ML pipeline.
+> A non-invasive, real-time Parkinson's disease screening tool that analyzes keystroke dynamics - the way you type - to detect early motor control irregularities associated with Parkinson's disease. Built with Flask, scikit-learn, and a research-backed 10-feature ML pipeline.
 
 ---
 
@@ -239,7 +239,7 @@ Flask session stores result
 ```
 parkinsons-keystroke-detector/
 │
-├── app.py                          # Flask backend — routes, feature computation, prediction
+├── app.py                          # Flask backend - routes, feature computation, prediction
 ├── generate_and_train.py           # Dataset generation + model training script
 ├── parkinsons_synthetic_dataset.csv # 1,050-subject research-backed dataset
 │
@@ -379,10 +379,10 @@ python generate_and_train.py
 | Results in days/weeks | Results in 90 seconds |
 | No personalized report | Full PDF report with patient data and doctor recommendations |
 | No age/gender normalization | Model trained with age-stratified data |
-| Single-feature analysis | 10-feature research-backed pipeline |
+| Single feature analysis | 10 feature research backed pipeline |
 
 ---
 
 ## Built By
 
-**Samruddhi & Gargi** — B.Tech CSE (Data Science), VIT Pune, 2025
+**Samruddhi & Gargi** - B.Tech CSE (Data Science), VIT Pune, 2025
